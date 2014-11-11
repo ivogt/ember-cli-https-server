@@ -9,24 +9,24 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0" // Avoids DEPTH_ZERO_SELF_SIGNED_
 
 module.exports = {
   name: 'https-server',
-  // dynamicScript: function(request) {
-  //   var liveReloadPort = process.env.EMBER_CLI_INJECT_LIVE_RELOAD_PORT;
-
-  //   return "(function() {\n " +
-  //          "var src = 'http://' + (location.hostname || 'localhost') + ':" + liveReloadPort + "/livereload.js?snipver=1';\n " +
-  //          "var script    = document.createElement('script');\n " +
-  //          "script.type   = 'text/javascript';\n " +
-  //          "script.src    = src;\n " +
-  //          "document.getElementsByTagName('head')[0].appendChild(script);\n" +
-  //          "}());";
-  // },
-  contentFor: function(type) {
+  dynamicScript: function(request) {
     var liveReloadPort = process.env.EMBER_CLI_INJECT_LIVE_RELOAD_PORT;
 
-    if (liveReloadPort && type === 'head') {
-      return '<script src="/ember-cli-live-reload-http.js" type="text/javascript"></script>';
-    }
+    return "(function() {\n " +
+           "var src = 'http://' + (location.hostname || 'localhost') + ':" + liveReloadPort + "/livereload.js?snipver=1';\n " +
+           "var script    = document.createElement('script');\n " +
+           "script.type   = 'text/javascript';\n " +
+           "script.src    = src;\n " +
+           "document.getElementsByTagName('head')[0].appendChild(script);\n" +
+           "}());";
   },
+  // contentFor: function(type) {
+  //   var liveReloadPort = process.env.EMBER_CLI_INJECT_LIVE_RELOAD_PORT;
+
+  //   if (liveReloadPort && type === 'head') {
+  //     return '<script src="/ember-cli-live-reload-http.js" type="text/javascript"></script>';
+  //   }
+  // },
 
   serverMiddleware: function(config) {
     var app = config.app;
