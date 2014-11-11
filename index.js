@@ -20,13 +20,13 @@ module.exports = {
            "document.getElementsByTagName('head')[0].appendChild(script);\n" +
            "}());";
   },
-  contentFor: function(type) {
-    var liveReloadPort = process.env.EMBER_CLI_INJECT_LIVE_RELOAD_PORT;
+  // contentFor: function(type) {
+  //   var liveReloadPort = process.env.EMBER_CLI_INJECT_LIVE_RELOAD_PORT;
 
-    if (liveReloadPort && type === 'head') {
-      return '<script src="/ember-cli-live-reload-http.js" type="text/javascript"></script>';
-    }
-  },
+  //   if (liveReloadPort && type === 'head') {
+  //     return '<script src="/ember-cli-live-reload-http.js" type="text/javascript"></script>';
+  //   }
+  // },
 
   serverMiddleware: function(config) {
     var app = config.app;
@@ -53,10 +53,10 @@ module.exports = {
     // });
 
     process.env.EMBER_CLI_INJECT_LIVE_RELOAD_PORT = options.liveReloadPort;
-    app.use('/ember-cli-live-reload-http.js', function(request, response, next) {
-      response.contentType('text/javascript');
-      response.send(self.dynamicScript());
-    });
+    // app.use('/ember-cli-live-reload-http.js', function(request, response, next) {
+    //   response.contentType('text/javascript');
+    //   response.send(self.dynamicScript());
+    // });
    	var httpsApp =  https.createServer({
     	key: fs.readFileSync(__dirname + '/certificate/private.key'),
   		cert: fs.readFileSync(__dirname + '/certificate/self.cert')
